@@ -3,16 +3,13 @@ import pytesseract
 import tkinter as tk
 from tkinterdnd2 import DND_FILES, TkinterDnD
 
-# Tesseract path (adjust as needed)
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\User\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+# Tesseract path (edit for your's)
+pytesseract.pytesseract.tesseract_cmd = r'.\Tesseract-OCR\tesseract.exe'
 
 def guid():
     win = TkinterDnD.Tk()
     win.title("Image to Text")
     win.geometry("600x500")
-
-    # --- NEW: Boolean variable for auto-copy ---
-    auto_copy = tk.BooleanVar()
 
     label = tk.Label(win, text="Drag and drop an image or enter path manually:", font=("Arial", 12))
     entry = tk.Entry(win, width=60)
@@ -26,9 +23,8 @@ def guid():
         if text:
             win.clipboard_clear()
             win.clipboard_append(text)
-            win.update()  # Optional: keep clipboard after app closes
-
-
+            win.update() 
+            
     def on_submit():
         img_path = entry.get().strip().strip('{').strip('}')
         try:
@@ -54,7 +50,6 @@ def guid():
     entry.drop_target_register(DND_FILES)
     entry.dnd_bind('<<Drop>>', on_drop)
 
-    # Layout
     button.pack(pady=5)
     label.pack(pady=(10, 5))
     entry.pack(pady=2)
